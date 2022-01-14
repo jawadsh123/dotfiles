@@ -15,10 +15,14 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "22.05";
+
+  fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     silver-searcher
     nodejs
     yarn
+    fira-code
+    jetbrains-mono
   ];
 
   # Let Home Manager install and manage itself.
