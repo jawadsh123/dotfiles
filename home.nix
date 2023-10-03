@@ -23,7 +23,34 @@
     yarn
     fira-code
     jetbrains-mono
+    difftastic
+    sloc
+    tokei
+    wabt
+    meld
+    dbeaver
+    glow
+    bat
+    htop
+    bento4
+    shell_gpt
+    gh
+    github-copilot-cli
+    
+    kubectl
+    eksctl
+    awscli2
+
+    tailscale
+    ngrok
   ];
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = (_: true);
+    };
+  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -45,11 +72,10 @@
       enable = true;
       matchBlocks = {
         "github" = {
-          host = "github";
+          host = "github.com";
           identitiesOnly = true;
           identityFile = ["~/.ssh/github"];
           user = "git";
-          hostname = "github.com";
         };
       };
     };
@@ -70,6 +96,10 @@
         set hls
         colorscheme onedark
       '';
+    };
+
+    helix = {
+      enable = true;
     };
 
     autojump.enable = true;
@@ -105,11 +135,22 @@
             sha256 = "0z6i9wjjklb4lvr7zjhbphibsyx51psv50gm07mbb0kj9058j6kc";
           };
         }
+        {
+          name = "zsh-nix-shell";
+          file = "nix-shell.plugin.zsh";
+          src = pkgs.fetchFromGitHub {
+            owner = "chisui";
+            repo = "zsh-nix-shell";
+            rev = "v0.4.0";
+            sha256 = "037wz9fqmx0ngcwl9az55fgkipb745rymznxnssr3rx9irb6apzg";
+          };
+        }
       ];
       oh-my-zsh = {
         enable = true;
         plugins = [
           "git"
+          "vi-mode"
         ];
       };
       shellAliases = {
@@ -120,6 +161,29 @@
       '';
       initExtra = ''
         export EDITOR=vim
+        . $HOME/.asdf/asdf.sh
+        
+        export PATH=$HOME/_bin:$PATH
+        export LANG=en_US.UTF-8
+        export LC_ALL=en_US.UTF-8
+        bindkey -v
+
+        # Shell-GPT integration ZSH v0.1
+        _sgpt_zsh() {
+          if [[ -n "$BUFFER" ]]; then
+            _sgpt_prev_cmd=$BUFFER
+            BUFFER+="⌛"
+            zle -I && zle redisplay
+            BUFFER=$(sgpt --shell <<< "$_sgpt_prev_cmd")
+            zle end-of-line
+          fi
+        }
+        zle -N _sgpt_zsh
+        bindkey '^ '  _sgpt_zsh
+        # Shell-GPT integration ZSH v0.1
+
+        # Github copilot CLI aliases (??, git?, ...)
+        eval "$(github-copilot-cli alias -- "$0")"
       '';
     };
 
