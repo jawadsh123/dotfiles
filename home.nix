@@ -19,8 +19,8 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     silver-searcher
-    nodejs
-    yarn
+    nodejs_22
+    (yarn.override { nodejs = nodejs_22; })
     fira-code
     jetbrains-mono
     difftastic
@@ -28,18 +28,37 @@
     tokei
     wabt
     meld
-    dbeaver
+    dbeaver-bin
     glow
     bat
+    tree
     htop
     bento4
-    shell_gpt
     gh
     github-copilot-cli
+    git-lfs
+    skhd
+    jq
+    wget
+    yt-dlp
+    wezterm
+    arduino-cli
+    direnv
+
+    # local https server
+    caddy
+
+    # disk usage analysis
+    dua
     
     kubectl
     eksctl
     awscli2
+    aws-iam-authenticator
+    aws-sam-cli
+    google-cloud-sdk
+    k6
+    k9s
 
     tailscale
     ngrok
@@ -66,6 +85,9 @@
         hub.protocol = "https";
         github.user = "jawadsh123";
       };
+      lfs = {
+        enable = true;
+      };
     };
 
     ssh = {
@@ -76,6 +98,12 @@
           identitiesOnly = true;
           identityFile = ["~/.ssh/github"];
           user = "git";
+        };
+        "gpu-server" = {
+          host = "34.215.103.251"; # Use the IP or hostname
+          identitiesOnly = true;
+          identityFile = ["~/.ssh/gpu-private-key.pem"];
+          user = "ubuntu";
         };
       };
     };
@@ -106,10 +134,10 @@
     fzf.enable = true;
     lazygit.enable = true;
     bottom.enable = true;
+    ripgrep.enable = true;
 
-    exa = {
+    eza = {
       enable = true;
-      enableAliases = true;
     };
 
     zsh = {
@@ -150,23 +178,25 @@
         enable = true;
         plugins = [
           "git"
-          "vi-mode"
+          "direnv"
         ];
       };
       shellAliases = {
         lg = "lazygit";
+        warpify = "printf '\\eP$f{\"hook\": \"SourcedRcFileForWarp\", \"value\": { \"shell\": \"zsh\"}}\\x9c'";
+        gfam = "git fetch origin main:main && git merge origin/main";
       };
       envExtra = ''
        export NIX_PATH=''${NIX_PATH:+$NIX_PATH:}''$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels
       '';
       initExtra = ''
         export EDITOR=vim
-        . $HOME/.asdf/asdf.sh
+        # . $HOME/.asdf/asdf.sh
         
         export PATH=$HOME/_bin:$PATH
+        export PATH=$HOME/.local/bin:$PATH
         export LANG=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
-        bindkey -v
 
         # Shell-GPT integration ZSH v0.1
         _sgpt_zsh() {
@@ -184,6 +214,19 @@
 
         # Github copilot CLI aliases (??, git?, ...)
         eval "$(github-copilot-cli alias -- "$0")"
+
+        # yarn bin
+        export PATH="$HOME/.yarn/bin:$PATH"
+      '';
+      initExtraFirst = ''
+        # ── minimal Nix bootstrap (runs before HM inserts its own code) ──
+        if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+          . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        else
+          if [ -x /nix/var/nix/profiles/default/bin/nix ]; then
+            PATH="/nix/var/nix/profiles/default/bin:$PATH"; export PATH
+          fi
+        fi
       '';
     };
 
