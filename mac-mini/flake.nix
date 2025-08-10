@@ -26,6 +26,8 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          # Auto-backup any existing files that would be clobbered by HM
+          home-manager.backupFileExtension = "backup";
           # Route HM to your user; home.nix provides the rest.
           home-manager.users.meursault = import ./home.nix;
         }
