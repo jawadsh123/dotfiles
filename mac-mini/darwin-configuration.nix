@@ -56,5 +56,8 @@
     home = "/Users/meursault";
     shell = pkgs.zsh;
   };
+
+  # Tailscale daemon (launchd)
+  services.tailscale.enable = true;
 }
 

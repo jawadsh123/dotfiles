@@ -11,6 +11,21 @@
   # If HM nags about nixpkgs release mismatch on unstable, silence it:
   home.enableNixpkgsReleaseCheck = false;
 
+  home.packages = with pkgs; [
+    nodejs_24
+    yarn
+
+    htop
+    gh
+    jq
+    wget
+    wezterm
+    direnv
+    
+    monitorcontrol
+    tailscale
+  ];
+
   # Karabiner reads ~/.config/karabiner/karabiner.json (official path)
   xdg.configFile."karabiner/karabiner.json" = {
     force = true; # avoid clobber/backup collisions by overwriting
@@ -23,6 +38,9 @@
     profiles = [{
       name = "Default";
       selected = true;
+      virtual_hid_keyboard = {
+        keyboard_type = "ansi"; # prevent Karabiner from asking every time
+      };
       complex_modifications.rules = [{
         description = "Swap Option and Command (external keyboards)";
         manipulators = [
@@ -85,8 +103,29 @@
       lfs.enable = true;
     };
 
-    # Lazygit TUI
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      plugins = with pkgs.vimPlugins; [
+        vim-nix
+        vim-airline
+        ctrlp
+        onedark-vim
+      ];
+      extraConfig = ''
+        set mouse=a
+        set number
+        set hls
+        colorscheme onedark
+      '';
+    };
+
+    autojump.enable = true;
+    fzf.enable = true;
     lazygit.enable = true;
+    bottom.enable = true;
+    ripgrep.enable = true;
 
     # Zsh setup (mirrors macbook)
     zsh = {
