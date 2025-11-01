@@ -21,6 +21,7 @@
     silver-searcher
     nodejs_22
     (yarn.override { nodejs = nodejs_22; })
+    bun
     fira-code
     jetbrains-mono
     difftastic
@@ -44,6 +45,9 @@
     wezterm
     arduino-cli
     direnv
+
+    # shell history
+    atuin
 
     # local https server
     caddy
@@ -185,6 +189,7 @@
         lg = "lazygit";
         warpify = "printf '\\eP$f{\"hook\": \"SourcedRcFileForWarp\", \"value\": { \"shell\": \"zsh\"}}\\x9c'";
         gfam = "git fetch origin main:main && git merge origin/main";
+        yolo-claude = "claude --dangerously-skip-permissions";
       };
       envExtra = ''
        export NIX_PATH=''${NIX_PATH:+$NIX_PATH:}''$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels
@@ -214,6 +219,9 @@
 
         # Github copilot CLI aliases (??, git?, ...)
         eval "$(github-copilot-cli alias -- "$0")"
+
+        # atuin (shell history)
+        eval "$(atuin init zsh --disable-up-arrow)"
 
         # yarn bin
         export PATH="$HOME/.yarn/bin:$PATH"
