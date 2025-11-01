@@ -23,7 +23,6 @@
     direnv
     
     monitorcontrol
-    tailscale
   ];
 
   # Karabiner reads ~/.config/karabiner/karabiner.json (official path)

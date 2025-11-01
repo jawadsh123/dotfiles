@@ -48,7 +48,10 @@
       upgrade = true;
       cleanup = "zap";
     };
-    casks = [ "karabiner-elements" ];
+    casks = [ 
+      "karabiner-elements"
+      "tailscale"
+    ];
   };
 
   # Optional: declare the user so darwin & HM agree
@@ -56,8 +59,5 @@
     home = "/Users/meursault";
     shell = pkgs.zsh;
   };
-
-  # Tailscale daemon (launchd)
-  services.tailscale.enable = true;
 }
 
