@@ -193,6 +193,7 @@
       };
       envExtra = ''
        export NIX_PATH=''${NIX_PATH:+$NIX_PATH:}''$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels
+       export ZELLIJ_SOCKET_DIR="$HOME/.local/share/zellij"
       '';
       initExtra = ''
         export EDITOR=vim
@@ -202,6 +203,11 @@
         export PATH=$HOME/.local/bin:$PATH
         export LANG=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
+
+        # zellij attach shortcut
+        zz() {
+          zellij attach "$@"
+        }
 
         # Shell-GPT integration ZSH v0.1
         _sgpt_zsh() {
