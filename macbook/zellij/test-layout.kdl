@@ -1,0 +1,38 @@
+layout {
+    // The default tab template
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+
+    // The Main Workspace Tab
+    tab name="Dev Workspace" focus=true {
+        pane split_direction="vertical" {
+            // LEFT SIDE: The Working Stack
+            // We use specific size percentages or let it take remaining space
+            pane split_direction="horizontal" size="65%" {
+                // Top of stack: Your main terminal
+                pane name="Main Terminal" focus=true
+                
+                // CHANGE THIS BLOCK:
+                // Old: pane split_direction="horizontal" { 
+                // New: Use "stacked=true" to create the accordion effect
+                pane stacked=true { 
+                     pane command="claude" name="Claude Planner"
+                     pane command="claude" name="Claude Coder 1"
+                }
+            }
+
+            // RIGHT SIDE: The Perma-Server
+            pane size="35%" split_direction="horizontal" {
+                pane name="Server Logs" command="npm" {
+                    args "run" "dev" 
+                    // ^ Replace with your actual server command
+                }
+                pane name="Database/Docker" size="30%" 
+            }
+        }
+    }
+}

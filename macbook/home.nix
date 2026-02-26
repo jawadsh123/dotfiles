@@ -1,6 +1,9 @@
 { pkgs, config, lib, ... }:
 
 {
+  imports = [
+    ./tmux.nix
+  ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "meursault";
@@ -38,14 +41,12 @@
     gh
     github-copilot-cli
     git-lfs
-    skhd
     jq
     wget
     yt-dlp
     wezterm
     arduino-cli
     direnv
-
     # shell history
     atuin
 
@@ -121,6 +122,7 @@
         vim-airline
         ctrlp
         onedark-vim
+        nvim-treesitter
       ];
       extraConfig = ''
         set mouse=a
