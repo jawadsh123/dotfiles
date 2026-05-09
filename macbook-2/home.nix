@@ -12,6 +12,11 @@
 
   programs.home-manager.enable = true;
 
+  xdg.configFile."nvim" = {
+    source = ./nvim;
+    recursive = true;
+  };
+
   home.packages = with pkgs; [
     nodejs_24
     yarn
@@ -66,6 +71,40 @@
     bottom.enable = true;
     eza.enable = true;
 
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      withPython3 = true;
+      withRuby = false;
+      plugins = with pkgs.vimPlugins; [
+        vim-nix
+        onedark-vim
+        (nvim-treesitter.withPlugins (p: [
+          p.elixir
+          p.heex
+          p.eex
+          p.javascript
+          p.typescript
+          p.tsx
+          p.json
+          p.html
+          p.css
+          p.lua
+          p.nix
+          p.bash
+          p.yaml
+          p.toml
+          p.markdown
+          p.python
+          p.rust
+        ]))
+        snacks-nvim
+        toggleterm-nvim
+        nvim-web-devicons
+      ];
+    };
+
     zsh = {
       enable = true;
       history.extended = true;
@@ -81,6 +120,8 @@
 
       shellAliases = {
         darwin-switch = "sudo darwin-rebuild switch --flake ~/dotfiles/macbook-2#Jawads-MBP";
+        vi = "nvim";
+        vim = "nvim";
         lg = "lazygit";
         gfam = "git fetch origin main:main && git merge origin/main";
         yolo-claude = "claude --dangerously-skip-permissions";
@@ -92,7 +133,7 @@
       '';
 
       initExtra = ''
-        export EDITOR=vim
+        export EDITOR=nvim
         export PATH="$HOME/_bin:$PATH"
         export PATH="$HOME/.local/bin:$PATH"
         export LANG=en_US.UTF-8
