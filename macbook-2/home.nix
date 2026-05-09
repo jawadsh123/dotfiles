@@ -13,10 +13,22 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+    nodejs_24
+    yarn
+    bun
+
     gh
     jq
     wget
     direnv
+    atuin
+
+    tree
+    fd
+    tokei
+    difftastic
+    glow
+    dua
   ];
 
   programs = {
@@ -50,6 +62,9 @@
     fzf.enable = true;
     lazygit.enable = true;
     ripgrep.enable = true;
+    bat.enable = true;
+    bottom.enable = true;
+    eza.enable = true;
 
     zsh = {
       enable = true;
@@ -68,6 +83,8 @@
         darwin-switch = "sudo darwin-rebuild switch --flake ~/dotfiles/macbook-2#Jawads-MBP";
         lg = "lazygit";
         gfam = "git fetch origin main:main && git merge origin/main";
+        yolo-claude = "claude --dangerously-skip-permissions";
+        yolo-codex = "codex --dangerously-bypass-approvals-and-sandbox";
       };
 
       envExtra = ''
@@ -80,6 +97,8 @@
         export PATH="$HOME/.local/bin:$PATH"
         export LANG=en_US.UTF-8
         export LC_ALL=en_US.UTF-8
+
+        eval "$(atuin init zsh --disable-up-arrow)"
       '';
 
       initExtraFirst = ''
