@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./tmux.nix
+  ];
+
   home.username = "meursault";
   home.homeDirectory = "/Users/meursault";
   home.stateVersion = "25.05";
