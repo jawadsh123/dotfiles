@@ -19,9 +19,16 @@
   # changes in each release.
   home.stateVersion = "22.05";
 
+  # symlink nvim config
+  xdg.configFile."nvim" = {
+    source = ./nvim;
+    recursive = true;
+  };
+
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     silver-searcher
+    fd
     nodejs_22
     (yarn.override { nodejs = nodejs_22; })
     bun
@@ -119,17 +126,30 @@
       vimAlias = true;
       plugins = with pkgs.vimPlugins; [
         vim-nix
-        vim-airline
-        ctrlp
         onedark-vim
-        nvim-treesitter
+        (nvim-treesitter.withPlugins (p: [
+          p.elixir
+          p.heex
+          p.eex
+          p.javascript
+          p.typescript
+          p.tsx
+          p.json
+          p.html
+          p.css
+          p.lua
+          p.nix
+          p.bash
+          p.yaml
+          p.toml
+          p.markdown
+          p.python
+          p.rust
+        ]))
+        snacks-nvim
+        toggleterm-nvim
+        nvim-web-devicons
       ];
-      extraConfig = ''
-        set mouse=a
-        set number
-        set hls
-        colorscheme onedark
-      '';
     };
 
     helix = {
@@ -188,6 +208,8 @@
         ];
       };
       shellAliases = {
+        vi = "nvim";
+        vim = "nvim";
         lg = "lazygit";
         warpify = "printf '\\eP$f{\"hook\": \"SourcedRcFileForWarp\", \"value\": { \"shell\": \"zsh\"}}\\x9c'";
         gfam = "git fetch origin main:main && git merge origin/main";
@@ -233,6 +255,9 @@
 
         # yarn bin
         export PATH="$HOME/.yarn/bin:$PATH"
+
+        # npm global bin (yarn global respects npm's prefix)
+        export PATH="$HOME/.npm-global/bin:$PATH"
       '';
       initExtraFirst = ''
         # ── minimal Nix bootstrap (runs before HM inserts its own code) ──
