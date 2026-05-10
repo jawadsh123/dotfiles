@@ -47,6 +47,14 @@
     difftastic
     glow
     dua
+
+    kubectl
+    k9s
+    awscli2
+    eksctl
+    aws-iam-authenticator
+    aws-sam-cli
+    google-cloud-sdk
   ];
 
   programs = {
