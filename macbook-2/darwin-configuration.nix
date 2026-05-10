@@ -7,6 +7,10 @@
   # Determinate Nix manages the Nix installation on this machine.
   nix.enable = false;
 
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "claude-code"
+  ];
+
   time.timeZone = "Asia/Calcutta";
   programs.zsh.enable = true;
 

@@ -55,6 +55,9 @@
     aws-iam-authenticator
     aws-sam-cli
     google-cloud-sdk
+
+    claude-code
+    codex
   ];
 
   programs = {
