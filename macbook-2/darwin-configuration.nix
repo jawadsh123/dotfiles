@@ -126,6 +126,7 @@
   homebrew = {
     enable = true;
     taps = [
+      "koekeishiya/formulae"
       "nikitabobko/tap"
     ];
     onActivation = {
@@ -133,6 +134,10 @@
       upgrade = true;
       cleanup = "zap";
     };
+    brews = [
+      "skhd"
+      "yabai"
+    ];
     casks = [
       "cursor"
       "discord"

@@ -17,6 +17,13 @@
     recursive = true;
   };
 
+  xdg.configFile."yabai/yabairc" = {
+    source = ./yabai/yabairc;
+    executable = true;
+  };
+
+  xdg.configFile."skhd/skhdrc".source = ./skhd/skhdrc;
+
   home.file.".aerospace.toml".source = ./aerospace/aerospace.toml;
 
   xdg.configFile."ghostty/config".source = ./ghostty/config;
