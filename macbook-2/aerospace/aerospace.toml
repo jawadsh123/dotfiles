@@ -1,7 +1,7 @@
 config-version = 2
 
 after-startup-command = []
-start-at-login = true
+start-at-login = false
 
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
@@ -18,10 +18,10 @@ preset = 'qwerty'
 
 [mode.main.binding]
 # Focus windows using the old skhd muscle memory.
-alt-l = 'focus right'
-alt-j = 'focus left'
-alt-k = 'focus down'
-alt-i = 'focus up'
+alt-l = 'focus right --ignore-floating'
+alt-j = 'focus left --ignore-floating'
+alt-k = 'focus down --ignore-floating'
+alt-i = 'focus up --ignore-floating'
 
 # Focus monitors.
 alt-o = 'focus-monitor right'
@@ -92,6 +92,11 @@ run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+if.window-title-regex-substring = '^$'
 run = ['layout floating']
 
 [[on-window-detected]]

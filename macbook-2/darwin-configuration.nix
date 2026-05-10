@@ -134,7 +134,6 @@
       cleanup = "zap";
     };
     casks = [
-      "aerospace"
       "cursor"
       "discord"
       "ghostty"
