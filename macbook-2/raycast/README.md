@@ -37,3 +37,49 @@ Not currently managed:
 - generated/local preference noise such as window positions, analytics IDs, onboarding state, and extension usage state
 
 Those should be restored through Raycast sign-in/sync or handled manually unless we later identify stable, safe preferences worth declaring.
+
+## Local Extensions
+
+### slash
+
+Personal extension repo:
+
+```text
+git@github.com:jawadsh123/raycast-slash.git
+```
+
+Current local source checkout:
+
+```text
+~/_sand/raycast-slash
+```
+
+Fresh machine setup:
+
+```sh
+git clone git@github.com:jawadsh123/raycast-slash.git ~/_sand/raycast-slash
+cd ~/_sand/raycast-slash
+yarn install --frozen-lockfile
+yarn build
+yarn dev
+```
+
+`yarn dev` runs `ray develop`, which registers the development extension at:
+
+```text
+~/.config/raycast/extensions/slash
+```
+
+Stop the dev watcher after the extension is registered unless actively developing the extension.
+
+Required Raycast extension preferences, set manually in Raycast:
+
+- `githubToken`: GitHub PAT with repo scope
+- `organizations`: optional comma-separated GitHub organizations
+- `geminiApiKey`: Gemini API key
+
+Do not commit those preference values.
+
+Old Mac note:
+
+- The old source checkout at `~/_sand/raycast-slash` had uncommitted edits in `src/blob.ts` and `src/index.tsx` when this machine was set up. The new machine currently uses clean `origin/main`; compare/harvest those edits separately if needed.
