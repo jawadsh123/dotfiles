@@ -17,6 +17,8 @@
     recursive = true;
   };
 
+  xdg.configFile."ghostty/config".source = ./ghostty/config;
+
   home.file.".claude/statusline.sh" = {
     source = ./claude/statusline.sh;
     executable = true;

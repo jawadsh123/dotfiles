@@ -1,0 +1,4 @@
+keybind = global:cmd+backquote=toggle_quick_terminal
+
+quick-terminal-animation-duration = 0
+quick-terminal-autohide = false

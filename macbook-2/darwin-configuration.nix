@@ -96,6 +96,7 @@
       cleanup = "zap";
     };
     casks = [
+      "ghostty"
       "raycast"
       "tailscale-app"
     ];
