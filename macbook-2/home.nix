@@ -241,6 +241,7 @@
 
       initExtra = ''
         export EDITOR=nvim
+        export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
         export PATH="$HOME/_bin:$PATH"
         export PATH="$HOME/.local/bin:$PATH"
         export LANG=en_US.UTF-8
