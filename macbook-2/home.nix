@@ -66,9 +66,6 @@
     aws-iam-authenticator
     aws-sam-cli
     google-cloud-sdk
-
-    claude-code
-    codex
   ];
 
   programs = {
@@ -239,6 +236,7 @@
 
       envExtra = ''
         export PATH="/etc/profiles/per-user/$USER/bin:$PATH"
+        export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
       '';
 
       initExtra = ''
