@@ -42,6 +42,18 @@
     pkgs.nerd-fonts.jetbrains-mono
   ];
 
+  homebrew = {
+    enable = true;
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+      cleanup = "zap";
+    };
+    casks = [
+      "tailscale-app"
+    ];
+  };
+
   users.users.meursault = {
     home = "/Users/meursault";
     shell = pkgs.zsh;
