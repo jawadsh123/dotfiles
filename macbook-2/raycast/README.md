@@ -80,6 +80,19 @@ Required Raycast extension preferences, set manually in Raycast:
 
 Do not commit those preference values.
 
+Manual command hotkey to restore:
+
+- Command: `slash`
+- Hotkey: `Cmd-Shift-/`
+
+Raycast stores per-command hotkeys in its app state, not in the extension manifest or macOS defaults. To set it on a fresh machine:
+
+1. Open Raycast and search for `slash`.
+2. Select the `slash` command.
+3. Press `Cmd-,` or open the Action Panel with `Cmd-K` and choose `Configure Command`.
+4. Choose `Set Hotkey`.
+5. Press `Cmd-Shift-/` and save.
+
 Old Mac note:
 
 - The old source checkout at `~/_sand/raycast-slash` had uncommitted edits in `src/blob.ts` and `src/index.tsx` when this machine was set up. The new machine currently uses clean `origin/main`; compare/harvest those edits separately if needed.
