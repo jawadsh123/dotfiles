@@ -17,6 +17,8 @@
     recursive = true;
   };
 
+  home.file.".aerospace.toml".source = ./aerospace/aerospace.toml;
+
   xdg.configFile."ghostty/config".source = ./ghostty/config;
 
   home.file.".claude/statusline.sh" = {

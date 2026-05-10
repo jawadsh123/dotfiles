@@ -125,12 +125,16 @@
 
   homebrew = {
     enable = true;
+    taps = [
+      "nikitabobko/tap"
+    ];
     onActivation = {
       autoUpdate = true;
       upgrade = true;
       cleanup = "zap";
     };
     casks = [
+      "aerospace"
       "ghostty"
       "raycast"
       "tailscale-app"

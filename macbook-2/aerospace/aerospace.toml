@@ -1,0 +1,99 @@
+config-version = 2
+
+after-startup-command = []
+start-at-login = true
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = false
+
+[key-mapping]
+preset = 'qwerty'
+
+[mode.main.binding]
+# Focus windows using the old skhd muscle memory.
+alt-l = 'focus right'
+alt-j = 'focus left'
+alt-k = 'focus down'
+alt-i = 'focus up'
+
+# Focus monitors.
+alt-o = 'focus-monitor right'
+alt-u = 'focus-monitor left'
+
+# Swap windows inside the current workspace.
+alt-shift-l = 'swap right'
+alt-shift-j = 'swap left'
+alt-shift-k = 'swap down'
+alt-shift-i = 'swap up'
+
+# Move windows through the layout tree. This is the first Aerospace replacement
+# for yabai warp; we can switch to join-with if this feels wrong.
+ctrl-alt-shift-l = 'move right'
+ctrl-alt-shift-j = 'move left'
+ctrl-alt-shift-k = 'move down'
+ctrl-alt-shift-i = 'move up'
+
+# Workspace navigation.
+ctrl-1 = 'workspace 1'
+ctrl-2 = 'workspace 2'
+ctrl-3 = 'workspace 3'
+ctrl-4 = 'workspace 4'
+ctrl-5 = 'workspace 5'
+ctrl-6 = 'workspace 6'
+ctrl-7 = 'workspace 7'
+ctrl-8 = 'workspace 8'
+ctrl-9 = 'workspace 9'
+ctrl-0 = 'workspace 10'
+
+# Move window to workspace and follow it, like the old yabai bindings.
+ctrl-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
+ctrl-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
+ctrl-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
+ctrl-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
+ctrl-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
+ctrl-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
+ctrl-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
+ctrl-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
+ctrl-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
+ctrl-shift-0 = 'move-node-to-workspace --focus-follows-window 10'
+
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+ctrl-alt-space = 'balance-sizes'
+alt-shift-space = 'layout tiles'
+ctrl-alt-shift-space = 'layout accordion'
+
+alt-shift-semicolon = 'mode service'
+
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+t = ['layout tiles', 'mode main']
+a = ['layout accordion', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+
+alt-shift-l = ['join-with right', 'mode main']
+alt-shift-j = ['join-with left', 'mode main']
+alt-shift-k = ['join-with down', 'mode main']
+alt-shift-i = ['join-with up', 'mode main']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = ['layout tiling']
