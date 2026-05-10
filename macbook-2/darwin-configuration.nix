@@ -135,8 +135,13 @@
     };
     casks = [
       "aerospace"
+      "cursor"
+      "discord"
       "ghostty"
+      "monitorcontrol"
+      "obsidian"
       "raycast"
+      "stats"
       "tailscale-app"
     ];
   };
