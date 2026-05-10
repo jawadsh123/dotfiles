@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -15,6 +15,19 @@
   xdg.configFile."nvim" = {
     source = ./nvim;
     recursive = true;
+  };
+
+  home.file.".claude/statusline.sh" = {
+    source = ./claude/statusline.sh;
+    executable = true;
+  };
+
+  home.file.".claude/settings.json".text = builtins.toJSON {
+    statusLine = {
+      type = "command";
+      command = "~/.claude/statusline.sh";
+      padding = 0;
+    };
   };
 
   home.packages = with pkgs; [
@@ -109,6 +122,18 @@
       enable = true;
       history.extended = true;
       autosuggestion.enable = true;
+      plugins = [
+        {
+          name = "powerlevel10k";
+          src = pkgs.zsh-powerlevel10k;
+          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        }
+        {
+          name = "powerlevel10k-config";
+          src = lib.cleanSource ./p10k-config;
+          file = "p10k.zsh";
+        }
+      ];
 
       oh-my-zsh = {
         enable = true;
