@@ -65,6 +65,16 @@
       enable = true;
       enableDefaultConfig = false;
       matchBlocks = {
+        "*" = {
+          addKeysToAgent = "no";
+          compression = false;
+          controlMaster = "no";
+          controlPath = "none";
+          forwardAgent = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 3;
+        };
+
         "github.com" = {
           hostname = "github.com";
           user = "git";
@@ -75,7 +85,17 @@
           };
         };
 
-        "old-mac" = {
+        "macbook-1" = {
+          user = "meursault";
+          identityFile = "~/.ssh/macbook2_to_old_mac";
+          identitiesOnly = true;
+          extraOptions = {
+            PreferredAuthentications = "publickey";
+            PasswordAuthentication = "no";
+          };
+        };
+
+        "macbook-1-office" = {
           hostname = "100.121.254.51";
           user = "meursault";
           identityFile = "~/.ssh/macbook2_to_old_mac";
@@ -85,7 +105,36 @@
             PasswordAuthentication = "no";
           };
         };
+
+        "macbook-1-personal" = {
+          hostname = "100.123.59.142";
+          user = "meursault";
+          identityFile = "~/.ssh/macbook2_to_old_mac";
+          identitiesOnly = true;
+          extraOptions = {
+            PreferredAuthentications = "publickey";
+            PasswordAuthentication = "no";
+          };
+        };
+
+        "swamp" = {
+          hostname = "100.94.158.106";
+          user = "meursault";
+          identityFile = "~/.ssh/macbook2_to_old_mac";
+          identitiesOnly = true;
+          extraOptions = {
+            PreferredAuthentications = "publickey";
+            PasswordAuthentication = "no";
+          };
+        };
       };
+      extraConfig = ''
+        Match host macbook-1 exec "/usr/local/bin/tailscale debug prefs | grep -q 'jawad.shaikh@invideo.io'"
+          HostName 100.121.254.51
+
+        Match host macbook-1 exec "/usr/local/bin/tailscale debug prefs | grep -q 'shaikhjawad007@gmail.com'"
+          HostName 100.123.59.142
+      '';
     };
 
     git = {
