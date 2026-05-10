@@ -54,6 +54,7 @@
       cleanup = "zap";
     };
     casks = [
+      "raycast"
       "tailscale-app"
     ];
   };
