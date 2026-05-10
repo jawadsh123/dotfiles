@@ -14,6 +14,11 @@
   time.timeZone = "Asia/Calcutta";
   programs.zsh.enable = true;
 
+  system.keyboard = {
+    enableKeyMapping = true;
+    nonUS.remapTilde = true;
+  };
+
   networking = {
     hostName = "Jawads-MBP.local";
     localHostName = "Jawads-MBP";
