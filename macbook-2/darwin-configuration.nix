@@ -19,7 +19,7 @@
       ApplePressAndHoldEnabled = false;
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
-      "com.apple.swipescrolldirection" = false;
+      "com.apple.swipescrolldirection" = true;
     };
 
     dock = {
@@ -38,6 +38,43 @@
     };
 
     trackpad.Clicking = true;
+
+    CustomUserPreferences = {
+      "com.raycast.macos" = {
+        raycastGlobalHotkey = "Command-49";
+      };
+
+      "com.apple.symbolichotkeys" = {
+        AppleSymbolicHotKeys = {
+          # Disable Spotlight's Cmd-Space shortcut so Raycast can own it.
+          "64" = {
+            enabled = false;
+            value = {
+              type = "standard";
+              parameters = [
+                32
+                49
+                1048576
+              ];
+            };
+          };
+
+          # Disable Finder search's Option-Cmd-Space shortcut too.
+          "65" = {
+            enabled = false;
+            value = {
+              type = "standard";
+              parameters = [
+                32
+                49
+                1572864
+              ];
+            };
+          };
+        };
+      };
+    };
+
   };
 
   security.pam.services.sudo_local.touchIdAuth = true;
