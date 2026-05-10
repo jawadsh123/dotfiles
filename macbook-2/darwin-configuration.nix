@@ -14,6 +14,11 @@
   time.timeZone = "Asia/Calcutta";
   programs.zsh.enable = true;
 
+  networking = {
+    hostName = "Jawads-MBP.local";
+    localHostName = "Jawads-MBP";
+  };
+
   system.defaults = {
     NSGlobalDomain = {
       ApplePressAndHoldEnabled = false;
