@@ -61,13 +61,26 @@
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks."github.com" = {
-        hostname = "github.com";
-        user = "git";
-        identityFile = "~/.ssh/github";
-        extraOptions = {
-          AddKeysToAgent = "yes";
-          UseKeychain = "yes";
+      matchBlocks = {
+        "github.com" = {
+          hostname = "github.com";
+          user = "git";
+          identityFile = "~/.ssh/github";
+          extraOptions = {
+            AddKeysToAgent = "yes";
+            UseKeychain = "yes";
+          };
+        };
+
+        "old-mac" = {
+          hostname = "100.121.254.51";
+          user = "meursault";
+          identityFile = "~/.ssh/macbook2_to_old_mac";
+          identitiesOnly = true;
+          extraOptions = {
+            PreferredAuthentications = "publickey";
+            PasswordAuthentication = "no";
+          };
         };
       };
     };
