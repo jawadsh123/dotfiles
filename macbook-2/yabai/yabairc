@@ -3,7 +3,9 @@
 # No scripting addition on this machine for now: keep SIP fully enabled.
 # This preserves the everyday tiling workflow but skips Spaces/sticky/layer tricks.
 
-yabai -m config layout bsp
+YABAI="/opt/homebrew/bin/yabai"
+
+"$YABAI" -m config layout bsp
 
 # Keep the old laptop's no-gap feel. Revisit later if we want breathing room.
 # yabai -m config left_padding 8
@@ -12,12 +14,12 @@ yabai -m config layout bsp
 # yabai -m config right_padding 8
 # yabai -m config window_gap 8
 
-yabai -m rule --add app="^System Settings$" manage=off
-yabai -m rule --add app="^Finder$" manage=off
-yabai -m rule --add app="^Stats$" manage=off
-yabai -m rule --add app="^MonitorControl$" manage=off
-yabai -m rule --add app="^Raycast$" manage=off
-yabai -m rule --add app="^Simulator$" manage=off
-yabai -m rule --add app="^Notes$" manage=off
-yabai -m rule --add title="^/dev/cu.usbmodem140111$" manage=off
-yabai -m rule --add app="^rerun$" manage=on
+"$YABAI" -m rule --add app="^System Settings$" manage=off
+"$YABAI" -m rule --add app="^Finder$" manage=off
+"$YABAI" -m rule --add app="^Stats$" manage=off
+"$YABAI" -m rule --add app="^MonitorControl$" manage=off
+"$YABAI" -m rule --add app="^Raycast$" manage=off
+"$YABAI" -m rule --add app="^Simulator$" manage=off
+"$YABAI" -m rule --add app="^Notes$" manage=off
+"$YABAI" -m rule --add title="^/dev/cu.usbmodem140111$" manage=off
+"$YABAI" -m rule --add app="^rerun$" manage=on
