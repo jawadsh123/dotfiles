@@ -3,7 +3,7 @@
   programs.tmux = {
     enable = true;
     shell = "${pkgs.zsh}/bin/zsh";
-    terminal = "xterm-256color";
+    terminal = "tmux-256color";
     baseIndex = 1;          # windows start at 1, not 0
     keyMode = "vi";
     mouse = true;
@@ -14,6 +14,7 @@
     extraConfig = ''
       # true color support
       set -ga terminal-overrides ",*256col*:Tc"
+      set -as terminal-features ",xterm-ghostty:RGB,ghostty:RGB,tmux-256color:RGB"
 
       # new splits/windows inherit current path
       bind v split-window -h -c "#{pane_current_path}"
