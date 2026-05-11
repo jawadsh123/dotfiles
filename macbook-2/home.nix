@@ -236,11 +236,13 @@
 
       envExtra = ''
         export PATH="/etc/profiles/per-user/$USER/bin:$PATH"
+        export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
         export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
       '';
 
       initExtra = ''
         export EDITOR=nvim
+        export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
         export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
         export PATH="$HOME/_bin:$PATH"
         export PATH="$HOME/.local/bin:$PATH"
