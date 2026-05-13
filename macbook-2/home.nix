@@ -58,6 +58,7 @@
     difftastic
     glow
     dua
+    ffmpeg
 
     kubectl
     k9s
