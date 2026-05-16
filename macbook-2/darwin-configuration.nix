@@ -142,6 +142,7 @@
       "cursor"
       "discord"
       "ghostty"
+      "karabiner-elements"
       "monitorcontrol"
       "obsidian"
       "raycast"

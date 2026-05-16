@@ -28,6 +28,87 @@
 
   xdg.configFile."ghostty/config".source = ./ghostty/config;
 
+  xdg.configFile."karabiner/karabiner.json" = {
+    force = true;
+    text = builtins.toJSON {
+      global = {
+        ask_for_confirmation = false;
+        show_in_menu_bar = false;
+        show_profile_name_in_menu_bar = false;
+      };
+      profiles = [
+        {
+          name = "Default";
+          selected = true;
+          virtual_hid_keyboard.keyboard_type = "ansi";
+          complex_modifications.rules = [
+            {
+              description = "Swap Option and Command (external keyboards)";
+              manipulators = [
+                {
+                  type = "basic";
+                  from = {
+                    key_code = "left_command";
+                    modifiers.optional = [ "any" ];
+                  };
+                  to = [ { key_code = "left_option"; } ];
+                  conditions = [
+                    {
+                      type = "device_if";
+                      identifiers = [ { is_built_in_keyboard = false; } ];
+                    }
+                  ];
+                }
+                {
+                  type = "basic";
+                  from = {
+                    key_code = "left_option";
+                    modifiers.optional = [ "any" ];
+                  };
+                  to = [ { key_code = "left_command"; } ];
+                  conditions = [
+                    {
+                      type = "device_if";
+                      identifiers = [ { is_built_in_keyboard = false; } ];
+                    }
+                  ];
+                }
+                {
+                  type = "basic";
+                  from = {
+                    key_code = "right_command";
+                    modifiers.optional = [ "any" ];
+                  };
+                  to = [ { key_code = "right_option"; } ];
+                  conditions = [
+                    {
+                      type = "device_if";
+                      identifiers = [ { is_built_in_keyboard = false; } ];
+                    }
+                  ];
+                }
+                {
+                  type = "basic";
+                  from = {
+                    key_code = "right_option";
+                    modifiers.optional = [ "any" ];
+                  };
+                  to = [ { key_code = "right_command"; } ];
+                  conditions = [
+                    {
+                      type = "device_if";
+                      identifiers = [ { is_built_in_keyboard = false; } ];
+                    }
+                  ];
+                }
+              ];
+            }
+          ];
+        }
+      ];
+    };
+  };
+
   home.file.".claude/statusline.sh" = {
     source = ./claude/statusline.sh;
     executable = true;
