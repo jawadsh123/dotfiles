@@ -241,6 +241,11 @@
     };
 
     fzf.enable = true;
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      options = [ "--cmd z" ];
+    };
     lazygit.enable = true;
     ripgrep.enable = true;
     bat.enable = true;
