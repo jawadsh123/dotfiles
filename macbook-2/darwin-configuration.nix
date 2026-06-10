@@ -126,6 +126,7 @@
   homebrew = {
     enable = true;
     taps = [
+      "daytonaio/cli"
       "koekeishiya/formulae"
       "nikitabobko/tap"
     ];
@@ -136,6 +137,7 @@
       extraFlags = [ "--force-cleanup" ];
     };
     brews = [
+      "daytona"
       "skhd"
       "yabai"
     ];
