@@ -13,9 +13,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    iv.url = "git+ssh://git@github.com/invideoio/iv";
   };
 
-  outputs = { darwin, home-manager, ... }:
+  outputs = { darwin, home-manager, ... }@inputs:
   let
     system = "aarch64-darwin";
     hostname = "Jawads-MBP";
@@ -29,6 +36,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
+          home-manager.extraSpecialArgs = { inherit inputs; };
           home-manager.users.meursault = import ./home.nix;
         }
       ];

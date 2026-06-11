@@ -1,8 +1,9 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 
 {
   imports = [
     ./tmux.nix
+    inputs.sops-nix.homeManagerModules.sops
   ];
 
   home.username = "meursault";
@@ -11,6 +12,20 @@
   home.enableNixpkgsReleaseCheck = false;
 
   programs.home-manager.enable = true;
+
+  # --- SOPS (secret management) ---
+  # Decrypted secrets land at ~/.config/sops-nix/secrets/<name> at activation.
+  # The age private key lives at ~/.config/sops/age/keys.txt (NOT in this repo).
+  sops = {
+    age.keyFile = "/Users/meursault/.config/sops/age/keys.txt";
+    defaultSopsFile = ./secrets/personal.yaml;
+    secrets.tailscale_personal_authkey = { };
+  };
+
+  # so the `sops` CLI finds the key automatically when editing secrets
+  home.sessionVariables = {
+    SOPS_AGE_KEY_FILE = "/Users/meursault/.config/sops/age/keys.txt";
+  };
 
   xdg.configFile."nvim" = {
     source = ./nvim;
@@ -130,6 +145,9 @@
     gh
     jq
     wget
+
+    sops
+    age
     direnv
     atuin
 
@@ -148,6 +166,8 @@
     aws-iam-authenticator
     aws-sam-cli
     google-cloud-sdk
+
+    inputs.iv.packages.${pkgs.system}.default
   ];
 
   programs = {
@@ -208,7 +228,10 @@
         };
 
         "swamp" = {
-          hostname = "100.94.158.106";
+          # Reach swamp via the personal-tailnet gateway container (172.31.250.2).
+          # This works while the native Tailscale client is on the WORK tailnet;
+          # the raw 100.94.158.106 would route into work's colliding CGNAT range.
+          hostname = "172.31.250.2";
           user = "meursault";
           identityFile = "~/.ssh/macbook2_to_old_mac";
           identitiesOnly = true;

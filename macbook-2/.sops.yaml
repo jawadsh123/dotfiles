@@ -1,0 +1,12 @@
+# sops-nix encryption config.
+# `keys` lists recipients (public keys — safe to commit).
+# Only the matching PRIVATE age key (kept at ~/.config/sops/age/keys.txt,
+# never committed) can decrypt.
+keys:
+  - &meursault_macbook2 age1dj4wmj2thvxffzhuq3pqewprvlr9p7c3ztn2zsl6tgheym7eqy2s6qkzcc
+
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env)$
+    key_groups:
+      - age:
+          - *meursault_macbook2

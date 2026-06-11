@@ -1,0 +1,40 @@
+# Personal-tailnet gateway container.
+# Bring up:  cd ~/dotfiles/macbook-2/tailscale-gateway && docker compose up -d
+# The macOS host reaches `swamp` via this container's static IP (172.31.250.2),
+# which NATs onward to the target over the personal tailnet.
+services:
+  tailscale-gw:
+    image: tailscale/tailscale:latest
+    container_name: tailscale-personal-gw
+    hostname: macbook-personal-gw
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+      - /dev/net/tun
+    sysctls:
+      - net.ipv4.ip_forward=1
+    environment:
+      TS_HOSTNAME: macbook-personal-gw
+      DNAT_TARGET: "100.94.158.106"   # swamp, on the personal tailnet
+    volumes:
+      - tailscale-personal-state:/var/lib/tailscale
+      # SOPS-decrypted auth key (read-only). Never lands in container env.
+      - /Users/meursault/.config/sops-nix/secrets/tailscale_personal_authkey:/run/authkey:ro
+      - ./entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: ["/bin/sh", "/entrypoint.sh"]
+    networks:
+      tsgw:
+        ipv4_address: 172.31.250.2
+
+networks:
+  tsgw:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.31.250.0/24
+          gateway: 172.31.250.1   # required for OrbStack to route this net to the host
+
+volumes:
+  tailscale-personal-state:

@@ -148,11 +148,24 @@
       "karabiner-elements"
       "monitorcontrol"
       "obsidian"
+      "orbstack"
       "raycast"
       "stats"
       "tailscale-app"
     ];
   };
+
+  # Map personal-tailnet `swamp` to the OrbStack gateway container, so it
+  # resolves system-wide (browser, curl, etc.) while the native Tailscale
+  # client stays on the work tailnet. Rewrites the marker line each activation
+  # so changes here propagate.
+  system.activationScripts.extraActivation.text = ''
+    tmp=$(mktemp)
+    grep -v "# personal-tailnet-gateway" /etc/hosts > "$tmp" || true
+    echo "172.31.250.2 swamp  # personal-tailnet-gateway" >> "$tmp"
+    install -m 0644 -o root -g wheel "$tmp" /etc/hosts
+    rm -f "$tmp"
+  '';
 
   users.users.meursault = {
     home = "/Users/meursault";
